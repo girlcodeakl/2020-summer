@@ -7,10 +7,24 @@
 </head>
 
 <body>
+  <div class="note"></div>
   <form method="post" action="/posts">
-    <input type="text" name="message" value="message goes here">
-    <button>Post it!</button>
+    <input type="text" name="message" value="message goes here" class="messageInput">
+    <button class="postButton">Post it!</button>
   </form>
+  <script>function sendMessageToServer(e) {
+      let data = {};
+      data.message = document.querySelector(".messageInput").value;
+      fetch("/posts", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: { 'Content-Type': 'application/json' }
+      });
+      e.preventDefault();
+      document.querySelector(".note").innerHTML = "Thanks! Your message was saved!";
+    }
+    document.querySelector(".postButton").addEventListener("click", sendMessageToServer);
+  </script>
 </body>
 
 </html>
