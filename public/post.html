@@ -17,12 +17,14 @@
   <form method="post" action="/posts">
     <input type="text" name="message" value="message goes here" class="messageInput">
     <input type="text" name="image" value="image URL goes here" class="imageInput">
+    <input type="text" name="message" value="write your name here" class="nameInput">
     <button class="postButton">Post it!</button>
   </form>
   <script>function sendMessageToServer(e) {
       let data = {};
       data.message = document.querySelector(".messageInput").value;
       data.image = document.querySelector(".imageInput").value;
+      data.author = document.querySelector(".nameInput").value;
       fetch("/posts", {
         method: "POST",
         body: JSON.stringify(data),
