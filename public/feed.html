@@ -28,6 +28,7 @@
         + '<img src="' + post.image + '">'
         + '<div class="message">' + post.message + '</div>'
         + '</div>'
+        + '  <div>' + post.author + '</div>';
 
       let messageList = document.querySelector(".message-list")
       messageList.innerHTML += postHTML
