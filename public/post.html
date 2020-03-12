@@ -4,14 +4,35 @@
 <head>
   <meta charset='utf-8'>
   <link rel="stylesheet" href="style.css">
+
+  <nav>
+    <a class=navbar href="/"> Home</a>
+    <a class=navbar href="/feed.html"> Feed</a>
+    <a class=navbar href="/post.html"> Post</a>
+  </nav>
 </head>
 
 <body>
+  <div class="note"></div>
   <form method="post" action="/posts">
-    <input type="text" name="message" value="message goes here">
-    <input type="text" name="image" value="image URL goes here">
-    <button>Post it!</button>
+    <input type="text" name="message" value="message goes here" class="messageInput">
+    <input type="text" name="image" value="image URL goes here" class="imageInput">
+    <button class="postButton">Post it!</button>
   </form>
+  <script>function sendMessageToServer(e) {
+      let data = {};
+      data.message = document.querySelector(".messageInput").value;
+      data.image = document.querySelector(".imageInput").value;
+      fetch("/posts", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: { 'Content-Type': 'application/json' }
+      });
+      e.preventDefault();
+      document.querySelector(".note").innerHTML = "Thanks! Your message was saved!";
+    }
+    document.querySelector(".postButton").addEventListener("click", sendMessageToServer);
+  </script>
 </body>
 
 </html>
