@@ -21,6 +21,7 @@ function sendPostsList(request, response) {
 }
 app.get('/posts', sendPostsList)
 
+
 // let a client POST something new
 function saveNewPost(request, response) {
   console.log(request.body.message) // write it on the command prompt so we can see
@@ -28,7 +29,13 @@ function saveNewPost(request, response) {
   let post = {};
   post.message = request.body.message;
   post.image = request.body.image;
+  if (post.image === "") {
+    post.image = "https://cdn.pixabay.com/photo/2019/02/25/22/50/elephant-4020798_960_720.jpg"
+  }
   post.author = request.body.author;
+  if (post.author === "") {
+    post.author = "Anonymous"
+  }
   posts.push(post); // save it in our list
   response.send("thanks for your message. Press back to add another")
   databasePosts.insert(post);
