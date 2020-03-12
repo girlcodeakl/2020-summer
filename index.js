@@ -1,4 +1,5 @@
 // set up
+let databasePosts = null;
 let express = require('express')
 let app = express()
 let bodyParser = require('body-parser')
@@ -28,9 +29,25 @@ function saveNewPost(request, response) {
   post.image = request.body.image;
   posts.push(post); // save it in our list
   response.send("thanks for your message. Press back to add another")
+  databasePosts.insert(post);
 }
 app.post('/posts', saveNewPost)
 
 // listen for connections on port 3000
 app.listen((process.env.PORT || 3000))
 console.log("Hi! I am listening at http://localhost:3000")
+let MongoClient = require('mongodb').MongoClient;
+let databaseUrl = 'mongodb://girlcode:hats123@ds119608.mlab.com:19608/girlcode2020-summer';
+let databaseName = 'girlcode2020-summer';
+
+MongoClient.connect(databaseUrl, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, client) {
+  if (err) throw err;
+  console.log("yay we connected to the database");
+  let database = client.db(databaseName);
+  databasePosts = database.collection('posts');
+  databasePosts.find({}).toArray(function (err, results) {
+    if (err) throw err;
+    console.log("Found " + results.length + " results");
+    posts = results
+  });
+});
