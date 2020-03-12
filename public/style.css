@@ -39,3 +39,26 @@ color: blueviolet ;
 text-decoration: underline;
 }
 
+input {
+  font-size: 15px;
+  padding:10px 20px;
+  display: block;
+  border: 1px solid grey;
+  background-color: whitesmoke;
+  color: black;
+  margin:20px auto;
+  width: 50%;
+}
+
+button {
+ font-size: 20px;
+ display: block;
+ color: white;
+ background-color: green;
+ border: 1px solid grey;
+ margin:20px auto;
+ padding:10px 20px;
+ width: 50%;
+ max-width: 150px;
+}
+
